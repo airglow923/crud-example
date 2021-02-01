@@ -1,0 +1,33 @@
+{
+  "name": "crud-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Placeholder text\" && exit 0",
+    "build": "./node_modules/.bin/babel src --out-dir lib",
+    "start": "node lib/index.js",
+    "dev": "nodemon lib/index.js",
+    "lint": "npx eslint . --ext .js,.jsx",
+    "fix": "npm run lint -- --fix",
+    "format": "npx prettier -w ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
+  }
+}
