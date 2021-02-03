@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import db from './models';
 
 const app = express();
 
@@ -13,6 +14,15 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+db.sequelize
+  .sync({ force: true })
+  .then(() => {
+    console.log('Drop and resync');
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 app.get('/', (req, res) => {
   res.json({ message: 'GET HTTPS request' });
