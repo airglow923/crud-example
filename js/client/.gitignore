@@ -2,10 +2,10 @@
 node_modules/
 
 # babel
-lib/
-
-# webpack
 dist/
 
 coverage/
 package-lock.json
+
+# backup src
+src-bak/
