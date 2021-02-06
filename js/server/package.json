@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Placeholder text\" && exit 0",
-    "build": "npx babel src --out-dir ./lib",
-    "serve": "node --experimental-specifier-resolution=node src/server.js",
-    "watch": "nodemon --watch src/ --exec npm run build",
-    "dev": "nodemon --watch src/ --exec npm run serve",
-    "lint": "npx eslint . --ext .js,.jsx",
-    "fix": "npm run lint -- --fix",
-    "format": "npx prettier -w ."
+    "build": "yarn babel src --out-dir ./lib",
+    "serve": "node ./lib/server.js",
+    "watch": "nodemon --watch src/ --exec yarn build",
+    "dev": "nodemon --watch src/ --exec yarn serve",
+    "lint": "yarn eslint . --ext .js,.jsx",
+    "fix": "yarn lint -- --fix",
+    "format": "yarn -w ."
   },
   "keywords": [],
   "author": "",
@@ -35,11 +35,5 @@
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.5.0"
-  },
-  "type": "module",
-  "browserslist": [
-    ">0.25%",
-    "not ie 11",
-    "not op_mini all"
-  ]
+  }
 }
