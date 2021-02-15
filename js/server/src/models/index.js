@@ -12,5 +12,5 @@ const sequelize = new Sequelize(
 export default {
   sequelize,
   Sequelize,
-  users: User(sequelize, Sequelize),
+  user: User(sequelize, Sequelize),
 };
