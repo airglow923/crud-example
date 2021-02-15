@@ -15,6 +15,9 @@ export default {
       pool_min: process.env.POOL_MIN,
       pool_acqurie: process.env.POOL_ACQURIE,
       pool_idle: process.env.POOL_IDLE,
+      define: {
+        freezeTableName: true,
+      },
     },
   },
 };
