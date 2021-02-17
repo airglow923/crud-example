@@ -1,20 +1,26 @@
-import dotenv from 'dotenv';
+import dotenvSafe from 'dotenv-safe';
+import env from './env';
 
-dotenv.config({ silent: true });
+dotenvSafe.config({
+  silent: true,
+  allowEmptyValues: true,
+  path: env,
+  example: `${env}.example`,
+});
 
 export default {
   port: process.env.PORT,
   db: {
-    database: process.env.DATABASE,
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD,
+    database: process.env.DATABASE || 'testdb',
+    username: process.env.USERNAME || 'root',
+    password: process.env.PASSWORD || '',
     options: {
-      host: process.env.HOST,
-      dialect: process.env.DIALECT,
-      pool_max: process.env.POOL_MAX,
-      pool_min: process.env.POOL_MIN,
-      pool_acqurie: process.env.POOL_ACQURIE,
-      pool_idle: process.env.POOL_IDLE,
+      host: process.env.HOST || 'localhost',
+      dialect: process.env.DIALECT || 'mysql',
+      pool_max: process.env.POOL_MAX || 5,
+      pool_min: process.env.POOL_MIN || 0,
+      pool_acqurie: process.env.POOL_ACQURIE || 30000,
+      pool_idle: process.env.POOL_IDLE || 10000,
       define: {
         freezeTableName: true,
       },
