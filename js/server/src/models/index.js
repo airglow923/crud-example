@@ -1,16 +1,14 @@
 import Sequelize from 'sequelize';
 import config from '../config';
-import User from './User';
+import UserDefinition from './User';
 
 const sequelize = new Sequelize(
   config.db.database,
   config.db.username,
   config.db.password,
-  config.db.options,
+  config.db.options
 );
 
-export default {
-  sequelize,
-  Sequelize,
-  user: User(sequelize, Sequelize),
-};
+const User = UserDefinition(sequelize, Sequelize);
+
+export { sequelize, Sequelize, User };
