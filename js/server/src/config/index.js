@@ -11,7 +11,7 @@ dotenvSafe.config({
 export default {
   port: process.env.PORT,
   db: {
-    database: process.env.DATABASE || 'crud_example',
+    database: process.env.DATABASE || 'rest_api_example',
     username: process.env.USERNAME || 'root',
     password: process.env.PASSWORD || '',
     options: {
