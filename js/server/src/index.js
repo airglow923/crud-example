@@ -6,8 +6,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 import config from './config';
-import db from './models';
-import users from './routes/users';
+import { sequelize } from './models';
+import { users } from './routes';
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
 const frontPath = resolve(currentDir, 'views/');
@@ -17,7 +17,7 @@ const corsOptions = {
 };
 
 const main = async () => {
-  await db.sequelize
+  await sequelize
     .authenticate()
     .then(() => console.log('Database successfully connected.'));
 
@@ -29,11 +29,9 @@ const main = async () => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.get('/', (req, res) => res.send(resolve(frontPath, 'index.html')));
-
   app.use('/users', users);
 
-  await db.sequelize.sync({ force: false }).then(() => {
+  await sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}.`);
     });
