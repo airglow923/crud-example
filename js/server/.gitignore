@@ -2,8 +2,11 @@ node_modules/
 lib/
 coverage/
 
-.env
+# npm lockfile
 package-lock.json
 
 # transpiled front end
 src/views/
+
+# environment variables for production
+.env.production*
