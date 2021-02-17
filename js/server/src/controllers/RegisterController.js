@@ -1,6 +1,6 @@
 import { User } from '../models';
 
-const register = async (req, res) => {
+export default async (req, res) => {
   try {
     const user = await User.create(req.body);
     res.send(user.toJSON());
@@ -10,5 +10,3 @@ const register = async (req, res) => {
     });
   }
 };
-
-export { register };
