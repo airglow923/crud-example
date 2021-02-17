@@ -22,6 +22,7 @@ const main = async () => {
     .then(() => console.log('Database successfully connected.'));
 
   const app = express();
+
   app.use(express.static(frontPath));
   app.use(compression());
   app.use(morgan('combined'));

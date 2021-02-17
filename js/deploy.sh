@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# set web application in production mode
+export NODE_ENV=production
+
 # change working directory to the script directory
 cd "$(dirname "$0")"
 
