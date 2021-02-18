@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Placeholder text\" && exit 0",
     "serve": "node --experimental-specifier-resolution=node ./src/index.js",
-    "dev": "nodemon --watch src/ --exec yarn serve",
+    "dev": "nodemon --exec yarn serve",
     "lint": "yarn eslint . --ext .js,.jsx",
     "fix": "yarn lint -- --fix",
     "format": "yarn prettier -w ."
