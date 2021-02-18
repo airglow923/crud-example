@@ -1,14 +1,15 @@
 import Joi from 'joi';
 
 const schema = Joi.object({
-  name: Joi.string().email(),
-  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,32}$')),
+  name: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required(),
+  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,32}$')).required(),
 });
 
 export default async (req, res, next) => {
   try {
-    const value = await schema.validateAsync(req.body);
-    next();
+    await schema.validateAsync(req.body);
   } catch (err) {
     switch (err.details[0].context.key) {
       case 'email':
@@ -25,4 +26,6 @@ export default async (req, res, next) => {
         break;
     }
   }
+
+  next();
 };
