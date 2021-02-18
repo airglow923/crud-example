@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
   config.db.database,
   config.db.username,
   config.db.password,
-  config.db.options
+  config.db.options,
 );
 
 const User = UserDefinition(sequelize, Sequelize);
