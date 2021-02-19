@@ -13,13 +13,13 @@ const registerPolicy = async (req, res, next) => {
   } catch (err) {
     switch (err.details[0].context.key) {
       case 'email':
-        res.status(400).send({
+        res.status(504).send({
           error: 'Invalid email',
         });
         break;
       case 'password':
-        res.status(400).send({
-          err: 'Invalid password',
+        res.status(505).send({
+          error: 'Invalid password',
         });
         break;
       default:
