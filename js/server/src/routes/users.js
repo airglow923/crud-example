@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { RegisterContoller } from '../controllers';
-import ReigsterControllerPolicy from '../policies/RegisterControllerPolicy';
+import { search, register } from '../controllers/UserController';
+import { registerPolicy } from '../policies/UserControllerPolicy';
 
 const router = Router();
 
 router.get('/', (req, res) => res.send('Hello this is /users'));
-router.post('/register', ReigsterControllerPolicy, RegisterContoller);
+router.get('/search', search);
+router.post('/register', registerPolicy, register);
 
 export default router;

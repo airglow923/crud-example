@@ -1,5 +1,3 @@
-import { dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
 import express from 'express';
 import compression from 'compression';
 import bodyParser from 'body-parser';
@@ -9,11 +7,9 @@ import config from './config';
 import { sequelize } from './models';
 import { users } from './routes';
 
-const currentDir = dirname(fileURLToPath(import.meta.url));
-const frontPath = resolve(currentDir, 'views/');
-const PORT = config.port || 8080;
+const PORT = config.port;
 const corsOptions = {
-  origin: 'http://localhost:8080',
+  origin: `http://localhost:${PORT}`,
 };
 
 const main = async () => {
@@ -23,13 +19,14 @@ const main = async () => {
 
   const app = express();
 
-  app.use(express.static(frontPath));
+  app.use(express.static('../../client/dist'));
   app.use(compression());
   app.use(morgan('combined'));
   app.use(cors(corsOptions));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
+  app.get('/', (req, res) => res.send('Landing page'));
   app.use('/users', users);
 
   await sequelize.sync({ force: false }).then(() => {

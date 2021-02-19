@@ -7,7 +7,7 @@ const schema = Joi.object({
   password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,32}$')).required(),
 });
 
-export default async (req, res, next) => {
+const registerPolicy = async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
   } catch (err) {
@@ -29,3 +29,5 @@ export default async (req, res, next) => {
 
   next();
 };
+
+export { registerPolicy };

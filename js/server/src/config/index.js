@@ -9,7 +9,7 @@ dotenvSafe.config({
 });
 
 export default {
-  port: process.env.PORT,
+  port: process.env.PORT || 8080,
   db: {
     database: process.env.DATABASE || 'rest_api_example',
     username: process.env.USERNAME || 'root',
