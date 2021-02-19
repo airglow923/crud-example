@@ -1,5 +1,15 @@
 import { User } from '../models';
 
+const list = async (req, res) => {
+  try {
+    res.send(await User.findAll());
+  } catch (err) {
+    res.status(501).send({
+      error: 'Server failure: list',
+    });
+  }
+};
+
 const search = async (req, res) => {
   try {
     const { email } = req.query;
@@ -13,8 +23,8 @@ const search = async (req, res) => {
     }
     res.send(result);
   } catch (err) {
-    res.status(400).send({
-      error: 'Users not found',
+    res.status(502).send({
+      error: 'Server failure: search',
     });
   }
 };
@@ -24,10 +34,10 @@ const register = async (req, res) => {
     const user = await User.create(req.body);
     res.send(user.toJSON());
   } catch (err) {
-    res.status(400).send({
-      error: 'Error no: 400',
+    res.status(503).send({
+      error: 'Server failure: register',
     });
   }
 };
 
-export { search, register };
+export { list, search, register };

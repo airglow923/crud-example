@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { search, register } from '../controllers/UserController';
+import { list, search, register } from '../controllers/UserController';
 import { registerPolicy } from '../policies/UserControllerPolicy';
 
 const router = Router();
 
-router.get('/', (req, res) => res.send('Hello this is /users'));
+router.get('/', list);
 router.get('/search', search);
 router.post('/register', registerPolicy, register);
 
