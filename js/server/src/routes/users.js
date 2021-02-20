@@ -3,19 +3,21 @@ import {
   list,
   search,
   register,
+  registerMultiple,
   unregister,
-  update,
   unregisterAll,
+  update,
 } from '../controllers/UserController';
 import { registerPolicy } from '../policies/UserControllerPolicy';
 
 const router = Router();
 
 router.get('/', list);
-router.post('/', registerPolicy, register);
+router.post('/', registerPolicy, registerMultiple);
 router.put('/', update);
 router.delete('/', unregisterAll);
 router.get('/search', search);
+router.post('/register', registerPolicy, register);
 router.delete('/unregister', unregister);
 
 export default router;

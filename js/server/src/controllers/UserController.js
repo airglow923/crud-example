@@ -1,66 +1,78 @@
-import { User } from '../models';
+import { sequelize, User } from '../models';
 
 const list = async (req, res) => {
-  try {
-    res.send(
-      await User.findAll({
-        attributes: ['email', 'password'],
-      }),
-    );
-  } catch (err) {
-    res.status(501).send({
-      error: 'Server failure: list',
+  User.findAll({
+    attributes: ['email', 'password'],
+  })
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        error: `${err} -- UserController.list`,
+      });
     });
-  }
 };
 
 const search = async (req, res) => {
-  try {
-    const { email } = req.query;
-    let result;
-    if (email !== undefined) {
-      result = await User.findAll({
-        where: {
-          email,
-        },
+  const { email } = req.query;
+  User.findByPk({
+    where: {
+      email,
+    },
+  })
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        error: `${err} -- UserController.search`,
       });
-    }
-    res.send(result);
-  } catch (err) {
-    res.status(502).send({
-      error: 'Server failure: search',
     });
-  }
 };
 
 const register = async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    res.send(user.toJSON());
-  } catch (err) {
-    res.status(503).send({
-      error: 'Server failure: register',
+  User.create(req.body)
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        error: `${err} -- UserController.register`,
+      });
     });
-  }
+};
+
+const registerMultiple = async (req, res) => {
+  User.bulkCreate(req.body)
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        error: `${err} -- UserController.register`,
+      });
+    });
 };
 
 const unregister = async (req, res) => {
-  try {
-    await User.destroy(req.body);
-  } catch (err) {
-    res.status(504).send({
-      error: 'Server failure: unregister',
-    });
-  }
-};
+  const { email } = req.query;
+  const users = await User.findAll({ where: { email } });
+  const transaction = await sequelize.transaction();
 
-const update = async (req, res) => {
   try {
-    const user = await User.update(req.body);
-    res.send(user.toJSON());
+    await Promise.all(
+      users.map(async (user) => {
+        await user.destroy({ transaction });
+        return user.reload();
+      }),
+    );
+
+    await transaction.commit();
+    res.status(200).send(users);
   } catch (err) {
-    res.status(505).send({
-      error: 'Server failure: update',
+    res.status(500).send({
+      error: `${err} -- UserController.unregister`,
     });
   }
 };
@@ -68,14 +80,32 @@ const update = async (req, res) => {
 const unregisterAll = async (req, res) => {
   try {
     await User.destroy({ where: {} });
-    res.send('All users unregistered');
+    res.sendStatus(200);
   } catch (err) {
-    res.status(506).send({
-      error: 'Server failure: unregisterAll',
+    res.status(500).send({
+      error: `${err} -- UserController.unregisterAll`,
     });
   }
 };
 
+const update = async (req, res) => {
+  User.update(req.body)
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        error: `${err} -- UserController.update`,
+      });
+    });
+};
+
 export {
-  list, search, register, unregister, update, unregisterAll,
+  list,
+  search,
+  register,
+  registerMultiple,
+  unregister,
+  unregisterAll,
+  update,
 };

@@ -8,8 +8,22 @@ const schema = Joi.object({
 });
 
 const registerPolicy = async (req, res, next) => {
+  const userInfo = req.body;
+  let result = null;
+
   try {
-    await schema.validateAsync(req.body);
+    if (userInfo.length === undefined) {
+      result = await schema.validateAsync(userInfo);
+    } else {
+      result = await Promise.all(
+        userInfo.map(async (info) => {
+          console.log(`Processing ${info.email}`);
+          return schema.validateAsync(info);
+        }),
+      );
+    }
+
+    res.send(result);
   } catch (err) {
     switch (err.details[0].context.key) {
       case 'email':
