@@ -89,8 +89,9 @@ const unregisterAll = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const { id, email, password } = req.query;
-  User.update({ email, password }, { where: { id } })
+  const { userId } = req.params;
+  const { email, password } = req.query;
+  User.update({ email, password }, { where: { id: userId } })
     .then((result) => {
       res.send(result);
     })
