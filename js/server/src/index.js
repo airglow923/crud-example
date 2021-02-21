@@ -26,7 +26,7 @@ const main = async () => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.get('/', (req, res) => res.send('Landing page'));
+  app.get('/', (req, res) => res.redirect('/users'));
   app.use('/users', users);
 
   await sequelize.sync({ force: false }).then(() => {

@@ -14,7 +14,7 @@ const router = Router();
 
 router.get('/', list);
 router.post('/', registerPolicy, registerMultiple);
-router.put('/', update);
+router.patch('/', update);
 router.delete('/', unregisterAll);
 router.get('/search', search);
 router.post('/register', registerPolicy, register);
