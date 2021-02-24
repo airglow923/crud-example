@@ -29,20 +29,6 @@
     "nodemon": "^2.0.7",
     "vuex": "^4.0.0"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
   "browserslist": [
     "> 1%",
     "not ie 11",
