@@ -3,5 +3,6 @@
   "watch": ["src/"],
   "env": {
     "NODE_ENV": "development"
-  }
+  },
+  "ext": "js,jsx,vue"
 }

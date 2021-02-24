@@ -10,7 +10,7 @@
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link
-            to="/tutorials"
+            to="/api/users"
             class="nav-link"
           >
             Tutorials
