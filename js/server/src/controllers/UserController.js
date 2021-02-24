@@ -16,7 +16,7 @@ const list = async (req, res) => {
 
 const search = async (req, res) => {
   const { email } = req.query;
-  User.findByPk({
+  User.findAll({
     where: {
       email,
     },

@@ -22,7 +22,7 @@ const main = async () => {
   app.use(express.static('../../client/dist'));
   app.use(compression());
   app.use(morgan('combined'));
-  app.use(cors(corsOptions));
+  app.use(cors());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
