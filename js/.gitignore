@@ -1,0 +1,2 @@
+# environment variables for production
+.env.production*
